@@ -9,22 +9,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/alunos") // Todas as rotas de aluno vão começar com /alunos
+@RequestMapping("/alunos")
 public class AlunoController {
 
     @Autowired
     private AlunoDAO alunoDAO;
 
-    // Método para abrir a tela de cadastro
+    // Renderiza a página com o formulário de cadastro de novos alunos
     @GetMapping("/novo")
     public String exibirFormularioCadastro() {
-        return "cadastro-aluno"; // Vai abrir o arquivo cadastro-aluno.html
+        return "cadastro-aluno";
     }
 
-    // Método que recebe os dados da tela e salva usando o DAO
+    // Processa o envio do formulário e persiste o aluno no banco de dados
     @PostMapping("/salvar")
     public String salvarAluno(Aluno aluno) {
-        alunoDAO.save(aluno); // Chama o método herdado do GenericDAO
-        return "redirect:/alunos/novo?sucesso"; // Recarrega a página mostrando que deu certo
+        alunoDAO.save(aluno);
+        // Retorna para o formulário limpando os campos e enviando parâmetro de sucesso para a view
+        return "redirect:/alunos/novo?sucesso";
     }
 }

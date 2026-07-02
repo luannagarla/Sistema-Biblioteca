@@ -21,23 +21,21 @@ public class Aluno {
         this.matricula = matricula;
     }
 
+    // Valida se as informações cadastrais obrigatórias foram preenchidas
     public boolean verificaAluno() {
-        // Retorna verdadeiro se os dados básicos estiverem preenchidos
         return this.nome != null && !this.nome.isEmpty() && this.cpf != null;
     }
 
+    // Regra do caso de uso Emprestar Livro para bloquear empréstimos se houver pendências
     public boolean verificaDebito() {
-        // No diagrama de sequência, o Aluno valida se tem débitos pendentes.
-        // Por enquanto, retorna false até o implementarmos a classe Debito.
         return false;
     }
 
+    // Consulta histórico de débitos vinculados à matrícula do aluno
     public boolean obtemDebito(int alunoID) {
-        // Lógica para verificar o histórico de débitos deste ID
         return false;
     }
 
-    // Getters e Setters
     public int getMatricula() { return matricula; }
     public void setMatricula(int matricula) { this.matricula = matricula; }
     public String getNome() { return nome; }

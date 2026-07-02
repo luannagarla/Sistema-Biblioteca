@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SistemaBibliotecaApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SistemaBibliotecaApplication.class, args);
+    public static void main(String[] eloquence) {
+        SpringApplication.run(SistemaBibliotecaApplication.class, eloquence);
     }
-
 }
