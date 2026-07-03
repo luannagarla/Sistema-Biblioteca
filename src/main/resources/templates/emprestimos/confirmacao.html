@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmação de Empréstimo</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .container { max-width: 550px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #fdfdfd; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); }
+        .box-dados { background-color: #f1f3f5; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 5px solid #28a745; }
+        .box-dados p { margin: 8px 0; font-size: 1.05em; }
+        .btn-sim { background-color: #28a745; color: white; padding: 12px 20px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        .btn-nao { background-color: #dc3545; color: white; padding: 12px 20px; text-decoration: none; display: inline-block; border-radius: 4px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
+<div class="container">
+    <h3 style="color: #2c3e50; margin-top: 0;">Confirmação dos Dados</h3>
+    <p>Por favor, confirme se os dados do exemplar e do estudante estão corretos antes de finalizar:</p>
+
+    <div class="box-dados">
+        <p><strong>Aluno:</strong> <span th:text="${aluno.nome}" style="color: #0056b3; font-weight: bold;">Nome</span> (RA: <span th:text="${aluno.matricula}">000</span>)</p>
+        <p><strong>Livro Código:</strong> <span th:text="${livro.codigo}" style="font-weight: bold;">0000</span></p>
+        <p><strong>Data do Empréstimo:</strong> <span th:text="${#dates.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}">01/01/2026</span></p>
+        <p><strong>Devolução Prevista:</strong> <span th:text="${#dates.format(emprestimo.dataPrevista, 'dd/MM/yyyy')}" style="color: #28a745; font-weight: bold;">08/01/2026</span></p>
+    </div>
+
+    <form th:action="@{/emprestimos/salvar}" method="POST" style="display: inline;">
+        <input type="hidden" name="alunoMatricula" th:value="${aluno.matricula}" />
+        <input type="hidden" name="livrosIds" th:value="${livro.codigo}" />
+
+        <button type="submit" class="btn-sim">✓ Confirmar Empréstimo</button>
+    </form>
+
+    <a th:href="@{/emprestimos/novo}" class="btn-nao">✗ Cancelar e Corrigir</a>
+</div>
+</body>
+</html>
+
