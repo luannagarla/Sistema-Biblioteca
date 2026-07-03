@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmação de Devolução</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .container { max-width: 550px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #fdfdfd; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); }
+        .box-dados { background-color: #f1f3f5; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 5px solid #28a745; }
+        .box-atraso { border-left: 5px solid #dc3545; background-color: #f8d7da; }
+        .box-dados p { margin: 8px 0; font-size: 1.05em; }
+        .btn-sim { background-color: #28a745; color: white; padding: 12px 20px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        .btn-nao { background-color: #dc3545; color: white; padding: 12px 20px; text-decoration: none; display: inline-block; border-radius: 4px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
+<div class="container">
+    <h3 style="color: #2c3e50; margin-top: 0;">Resumo da Devolução</h3>
+    <p>Verifique os dados abaixo antes de confirmar a devolução no sistema:</p>
+
+    <div class="box-dados" th:classappend="${devolucao.atraso} ? 'box-atraso' : ''">
+        <p><strong>Aluno:</strong> <span th:text="${aluno.nome}">Nome</span> (RA: <span th:text="${aluno.matricula}">000</span>)</p>
+        <p><strong>Livro Devolvido:</strong> <span th:text="${livro.codigo}">0000</span></p>
+        <p><strong>Data Prevista:</strong> <span th:text="${#dates.format(emprestimo.dataPrevista, 'dd/MM/yyyy')}">00/00/0000</span></p>
+        <p><strong>Data da Devolução:</strong> <span th:text="${#dates.format(devolucao.dataDevolucao, 'dd/MM/yyyy')}">00/00/0000</span></p>
+
+        <div th:if="${devolucao.atraso}">
+            <p style="color: #dc3545;"><strong>Dias de Atraso:</strong> <span th:text="${diasAtraso}">0</span> dias</p>
+            <p style="color: #dc3545;"><strong>Multa Gerada:</strong> R$ <span th:text="${devolucao.multa}">0.00</span></p>
+        </div>
+
+        <div th:unless="${devolucao.atraso}">
+            <p style="color: #28a745;"><strong>Status:</strong> Devolvido no prazo. Nenhuma multa gerada.</p>
+        </div>
+    </div>
+
+    <form th:action="@{/devolucoes/salvar}" method="POST" style="display: inline;">
+        <input type="hidden" name="livroCodigo" th:value="${livro.codigo}" />
+        <button type="submit" class="btn-sim">Confirmar Devolução</button>
+    </form>
+    <a th:href="@{/devolucoes/nova}" class="btn-nao">X Cancelar</a>
+</div>
+</body>
+</html>
