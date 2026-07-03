@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de Empréstimos - Sistema Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .container { max-width: 900px; margin: 30px auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #edf2f7; }
+        .btn-novo { background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; display: inline-block; float: right; margin-bottom: 15px; }
+        .alert-success { color: #155724; background-color: #d4edda; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb; }
+        ul { margin: 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
+<div class="container">
+    <h2>Empréstimos Realizados</h2>
+    <a th:href="@{/emprestimos/novo}" class="btn-novo">+ Novo Empréstimo</a>
+
+    <div th:if="${param.sucesso}" class="alert-success">
+        Empréstimo registrado e prazos calculados com sucesso!
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Aluno</th>
+            <th>Livros Emprestados</th>
+            <th>Data do Empréstimo</th>
+            <th>Prazo de Devolução</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emp : ${emprestimos}">
+            <td th:text="${emp.id}">1</td>
+            <td th:text="${emp.aluno.nome}">Nome do Aluno</td>
+            <td>
+                <ul>
+                    <li th:each="item : ${emp.i}" th:text="${'Código: ' + item.livro.codigo}">Código do Livro</li>
+                </ul>
+            </td>
+            <td th:text="${#dates.format(emp.dataEmprestimo, 'dd/MM/yyyy')}">01/01/2026</td>
+            <td th:text="${#dates.format(emp.dataPrevista, 'dd/MM/yyyy')}" style="font-weight: bold; color: #0056b3;">08/01/2026</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(emprestimos)}">
+            <td colspan="5" style="text-align: center; color: #777;">Nenhum empréstimo registrado até o momento.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
