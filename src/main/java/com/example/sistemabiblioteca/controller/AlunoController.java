@@ -18,7 +18,7 @@ public class AlunoController {
     public String listarAlunos(org.springframework.ui.Model model) {
         java.util.List<Aluno> lista = alunoDAO.findAll();
         model.addAttribute("alunos", lista);
-        return "alunos/lista"; // Caminho da pasta que vamos usar
+        return "alunos/lista";
     }
 
     // Renderiza a página com o formulário de cadastro de novos alunos
@@ -31,17 +31,12 @@ public class AlunoController {
     // Processa o envio do formulário e persiste o aluno no banco de dados
     @PostMapping("/salvar")
     public String salvarAluno(
-            @RequestParam("matricula") String matriculaStr, // <-- Pegamos como texto primeiro
+            @RequestParam("matricula") int matricula,
             @RequestParam("nome") String nome,
             @RequestParam("cpf") String cpf,
             @RequestParam("endereco") String endereco) {
         Aluno aluno = new Aluno();
-        try {
-            aluno.setMatricula(Integer.parseInt(matriculaStr));
-        } catch (NumberFormatException e) {
-            String reduzida = matriculaStr.substring(Math.max(0, matriculaStr.length() - 8));
-            aluno.setMatricula(Integer.parseInt(reduzida));
-        }
+        aluno.setMatricula(matricula);
         aluno.setNome(nome);
         aluno.setCpf(cpf);
         aluno.setEndereco(endereco);

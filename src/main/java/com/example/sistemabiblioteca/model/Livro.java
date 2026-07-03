@@ -31,7 +31,7 @@ public class Livro {
         if (this.titulo != null) {
             return this.titulo.getPrazo();
         }
-        return 0;
+        return 7;
     }
 
     // Verifica a correspondência do código do exemplar para controle do fluxo de empréstimo
