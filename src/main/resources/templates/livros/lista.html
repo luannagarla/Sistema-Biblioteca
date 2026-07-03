@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Livros - Sistema Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+</head>
+<body>
+<div class="container" style="max-width: 900px;">
+    <h2>Livros Cadastrados no Acervo</h2>
+
+    <div style="margin-bottom: 20px; text-align: right;">
+        <a th:href="@{/livros/novo}" class="btn-salvar" style="text-decoration: none; padding: 10px 15px;">+ Cadastrar Novo Livro</a>
+    </div>
+
+    <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <thead style="background-color: #edf2f7;">
+        <tr>
+            <th style="padding: 10px;">Código do Exemplar</th>
+            <th style="padding: 10px;">ISBN / Título</th>
+            <th style="padding: 10px;">Edição / Ano</th>
+            <th style="padding: 10px;">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${livros}">
+            <td style="padding: 10px; text-align: center;" th:text="${l.codigo}"></td>
+            <td style="padding: 10px;" th:text="${l.titulo != null ? l.titulo.isbn : 'Sem ISBN'}"></td>
+            <td style="padding: 10px; text-align: center;" th:text="${l.titulo != null ? l.titulo.edicao + 'ª Ed. (' + l.titulo.ano + ')' : '-'}"></td>
+            <td style="padding: 10px; text-align: center;">
+                <span th:if="${l.disponivel}" style="color: green; font-weight: bold;">Disponível</span>
+                <span th:unless="${l.disponivel}" style="color: red; font-weight: bold;">Indisponível</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 25px; text-align: center;">
+        <a th:href="@{/alunos}" style="color: #3182ce; text-decoration: none; font-size: 0.9rem;">→ Ir para Listagem de Alunos</a>
+    </div>
+</div>
+</body>
+</html>

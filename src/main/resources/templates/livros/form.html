@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Livro - Sistema Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+</head>
+<body>
+<div class="container">
+    <h2>Inserir Novo Livro no Acervo</h2>
+
+    <form th:action="@{/livros/salvar}" method="post">
+
+        <h3>Dados do Título</h3>
+        <div class="form-group">
+            <label>Código ISBN:</label>
+            <input type="text" name="isbn" required />
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Edição:</label>
+                <input type="number" name="edicao" min="1" required />
+            </div>
+            <div class="form-group">
+                <label>Ano de Publicação:</label>
+                <input type="number" name="ano" required />
+            </div>
+        </div>
+
+        <br><hr><br>
+
+        <h3>Dados do Exemplar (Livro)</h3>
+        <div class="form-group">
+            <label>Código do Exemplar (ID Único):</label>
+            <input type="number" name="codigo" required />
+        </div>
+
+        <div class="form-group">
+            <label>Disponibilidade:</label>
+            <select name="disponivel">
+                <option value="true">Disponível para Empréstimo</option>
+                <option value="false">Indisponível / Reservado</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-salvar">Concluir Cadastro</button>
+    </form>
+</div>
+</body>
+</html>

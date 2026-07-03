@@ -1,11 +1,8 @@
 package com.example.sistemabiblioteca.repository;
 
 import com.example.sistemabiblioteca.model.Aluno;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public class AlunoDAO extends GenericDAOImpl<Aluno> {
-    public AlunoDAO() {
-        super(Aluno.class);
-    }
+public interface AlunoDAO extends GenericDAO<Aluno> {
+    List<Aluno> findAll();
 }
