@@ -18,13 +18,15 @@
 <div class="container">
     <h2>Registrar Devolução</h2>
     <hr>
-    <div th:if="${param.erro}" class="alert-error">
-        Nenhum empréstimo ativo foi encontrado para este código de livro.
+
+    <div th:if="${erro}" class="alert-error" th:text="${erro}">
+        Nenhum empréstimo ativo foi encontrado.
     </div>
-    <form th:action="@{/devolucoes/confirmar}" method="POST">
+
+    <form th:action="@{/devolucoes/buscar}" method="POST">
         <div class="form-group">
-            <label for="livroCodigo">Código do Livro a ser devolvido:</label>
-            <input type="number" name="livroCodigo" id="livroCodigo" required placeholder="Ex: 17321" />
+            <label for="codigoLivro">Código do Livro a ser devolvido:</label>
+            <input type="number" name="codigoLivro" id="codigoLivro" required placeholder="Ex: 17321" />
         </div>
         <div style="margin-top: 20px;">
             <button type="submit" class="btn-avancar">Buscar Empréstimo</button>
