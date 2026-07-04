@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <title>Listagem de Livros - Sistema Biblioteca</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .container { max-width: 900px; margin: 30px auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #edf2f7; }
+        .btn-novo { background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; display: inline-block; float: right; margin-bottom: 15px; }
+        .alert-success { color: #155724; background-color: #d4edda; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb; }
+        ul { margin: 0; padding-left: 20px; }
+    </style>
 </head>
 <body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
 <div class="container" style="max-width: 900px;">
     <h2>Livros Cadastrados no Acervo</h2>
 
-    <div style="margin-bottom: 20px; text-align: right;">
-        <a th:href="@{/livros/novo}" class="btn-salvar" style="text-decoration: none; padding: 10px 15px;">+ Cadastrar Novo Livro</a>
-    </div>
+    <a th:href="@{/livros/novo}" class="btn-novo">+ Cadastrar Novo Livro</a>
 
     <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
         <thead style="background-color: #edf2f7;">
@@ -34,10 +42,6 @@
         </tr>
         </tbody>
     </table>
-
-    <div style="margin-top: 25px; text-align: center;">
-        <a th:href="@{/alunos}" style="color: #3182ce; text-decoration: none; font-size: 0.9rem;">→ Ir para Listagem de Alunos</a>
-    </div>
 </div>
 </body>
 </html>

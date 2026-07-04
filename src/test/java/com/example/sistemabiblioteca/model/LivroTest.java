@@ -20,12 +20,12 @@ class LivroTest {
 
 
     @Test
-    void deveRetornarZeroQuandoTituloNulo() {
+    void deveRetornarSeteQuandoTituloNulo() {
         Livro livro = new Livro();
         livro.setCodigo(100);
         int prazo = livro.verPrazo();
 
-        assertEquals(0, prazo);
+        assertEquals(7, prazo);
     }
 
     @Test

@@ -1,8 +1,9 @@
 package com.example.sistemabiblioteca.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "alunos")
@@ -26,16 +27,33 @@ public class Aluno {
         return this.nome != null && !this.nome.isEmpty() && this.cpf != null;
     }
 
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+    private List<Debito> debitos = new ArrayList<>();
+
     // Regra do caso de uso Emprestar Livro para bloquear empréstimos se houver pendências
     public boolean verificaDebito() {
+        if (this.debitos == null) return false;
+
+        // Varre a lista de débitos do aluno. Se achar algum que NÃO está pago, retorna true
+        for (Debito d : debitos) {
+            if (!d.isPago()) {
+                return true;
+            }
+        }
         return false;
     }
 
     // Consulta histórico de débitos vinculados à matrícula do aluno
     public boolean obtemDebito(int alunoID) {
-        return false;
+        // Se a matrícula passada não for a deste aluno, ou se ele não tiver débitos, retorna falso
+        if (this.matricula != alunoID || this.debitos == null) {
+            return false;
+        }
+        // Se ele tiver qualquer débito na lista, retorna verdadeiro informando que há histórico
+        return !this.debitos.isEmpty();
     }
-
+    public List<Debito> getDebitos() { return debitos; }
+    public void setDebitos(List<Debito> debitos) { this.debitos = debitos; }
     public int getMatricula() { return matricula; }
     public void setMatricula(int matricula) { this.matricula = matricula; }
     public String getNome() { return nome; }

@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <title>Cadastro de Aluno - Sistema Biblioteca</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="number"] { width: 100%; max-width: 300px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-avancar { background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 4px; }
+        .container { max-width: 500px; margin: 50px auto; }
+        .alert-error { color: #721c24; background-color: #f8d7da; padding: 10px; margin-bottom: 15px; border: 1px solid #f5c6cb; }
+    </style>
 </head>
 <body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
 <div class="container">
     <h2>Cadastrar Novo Aluno</h2>
 
@@ -35,12 +44,10 @@
             <input type="text" name="endereco" required />
         </div>
 
-        <button type="submit" class="btn-salvar">Concluir Cadastro</button>
+        <div class="botoes-container">
+            <button type="submit" class="btn-salvar-ajustado btn-salvar">Concluir Cadastro</button>
+        </div>
     </form>
-
-    <div style="margin-top: 20px; text-align: center;">
-        <a th:href="@{/livros}" style="color: #3182ce; text-decoration: none; font-size: 0.9rem;">← Voltar para Livros</a>
-    </div>
 </div>
 </body>
 </html>
