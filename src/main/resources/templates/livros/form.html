@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Livro - Sistema Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="number"] { width: 100%; max-width: 300px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-avancar { background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 4px; }
+        .container { max-width: 500px; margin: 50px auto; }
+        .alert-error { color: #721c24; background-color: #f8d7da; padding: 10px; margin-bottom: 15px; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
+<div class="container">
+    <h2>Inserir Novo Livro no Acervo</h2>
+
+    <form th:action="@{/livros/salvar}" method="post">
+
+        <h3>Dados do Título</h3>
+        <div class="form-group">
+            <label>Código ISBN:</label>
+            <input type="text" name="isbn" required />
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Edição:</label>
+                <input type="number" name="edicao" min="1" required />
+            </div>
+            <div class="form-group">
+                <label>Ano de Publicação:</label>
+                <input type="number" name="ano" required />
+            </div>
+        </div>
+
+        <br><hr><br>
+
+        <h3>Dados do Exemplar (Livro)</h3>
+        <div class="form-group">
+            <label>Código do Exemplar (ID Único):</label>
+            <input type="number" name="codigo" required />
+        </div>
+
+        <div class="form-group">
+            <label>Disponibilidade:</label>
+            <select name="disponivel">
+                <option value="true">Disponível para Empréstimo</option>
+                <option value="false">Indisponível / Reservado</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-salvar">Concluir Cadastro</button>
+    </form>
+</div>
+</body>
+</html>

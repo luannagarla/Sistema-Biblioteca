@@ -26,7 +26,13 @@ public class Titulo {
     )
     private List<Autor> autores = new ArrayList<>();
 
-    public Titulo() {}
+    public Titulo() {
+        this.prazo = 7; // Todo título criado nasce com 7 dias
+    }
+
+    public Titulo(int codigo) {
+        this.prazo = 7;
+    }
 
     public Titulo(int prazo, String isbn, int edicao, int ano) {
         this.prazo = prazo;
