@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de Devoluções</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .container { max-width: 900px; margin: 30px auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #edf2f7; }
+        .btn-novo { background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; display: inline-block; float: right; margin-bottom: 15px; }
+        .alert-success { color: #155724; background-color: #d4edda; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb; }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
+<div class="container">
+    <h2>Devoluções Realizadas</h2>
+    <a th:href="@{/devolucoes/novo}" class="btn-novo">+ Nova Devolução</a>
+
+    <div th:if="${param.sucesso}" class="alert-success">
+        Devolução registrada com sucesso e comprovante gerado!
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Código da Devolução</th>
+            <th>Data da Devolução</th>
+            <th>Houve Atraso?</th>
+            <th>Valor da Multa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dev : ${devolucoes}">
+            <td th:text="${dev.id}">1</td>
+            <td th:text="${#dates.format(dev.dataDevolucao, 'dd/MM/yyyy')}">01/01/2026</td>
+            <td th:text="${dev.atraso ? 'Sim' : 'Não'}">Não</td>
+            <td th:text="${dev.multa > 0 ? 'R$ ' + dev.multa : '-'}">-</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(devolucoes)}">
+            <td colspan="4" style="text-align: center; color: #777;">Nenhuma devolução registrada no sistema até o momento.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
