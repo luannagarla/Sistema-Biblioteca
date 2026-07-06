@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empréstimo</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="number"] { width: 100%; max-width: 300px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-avancar { background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 4px; }
+        .container { max-width: 500px; margin: 50px auto; }
+        .alert-error { color: #721c24; background-color: #f8d7da; padding: 10px; margin-bottom: 15px; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: navegacao}"></div>
+<div class="container">
+    <h2>Registrar Novo Empréstimo</h2>
+    <hr>
+
+
+    <div th:if="${param.erro}">
+        <div th:if="${#strings.equals(param.erro, 'livro_indisponivel')}" class="alert-error">
+            Este exemplar de livro já está emprestado e não está disponível no momento.
+        </div>
+        <div th:if="${#strings.equals(param.erro, 'aluno_nao_encontrado')}" class="alert-error">
+            Matrícula (RA) do aluno não foi localizada no sistema.
+        </div>
+        <div th:if="${#strings.equals(param.erro, 'livro_nao_encontrado')}" class="alert-error">
+            Código do livro não foi localizado no sistema.
+        </div>
+        <div th:if="${#strings.equals(param.erro, 'aluno_com_debito')}" class="alert-error">
+            ⚠Empréstimo bloqueado: O aluno possui débitos pendentes com a biblioteca.
+        </div>
+        <div th:if="${!#strings.equals(param.erro, 'livro_indisponivel') and !#strings.equals(param.erro, 'aluno_nao_encontrado') and !#strings.equals(param.erro, 'livro_nao_encontrado') and !#strings.equals(param.erro, 'aluno_com_debito')}" class="alert-error">
+            Ocorreu um erro ao processar os dados do empréstimo. Verifique as informações.
+        </div>
+    </div>
+
+    <form th:action="@{/emprestimos/confirmar}" method="POST">
+        <div class="form-group">
+            <label for="alunoMatricula">Matrícula (RA) do Aluno:</label>
+            <input type="number" name="alunoMatricula" id="alunoMatricula" required placeholder="Ex: 123" />
+        </div>
+
+        <div class="form-group">
+            <label for="livroCodigo">Código do Livro (Exemplar):</label>
+            <input type="number" name="livrosIds" id="livroCodigo" required placeholder="Ex: 17321" />
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn-avancar">Avançar →</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
