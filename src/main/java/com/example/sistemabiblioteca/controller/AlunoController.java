@@ -34,14 +34,21 @@ public class AlunoController {
             @RequestParam("matricula") int matricula,
             @RequestParam("nome") String nome,
             @RequestParam("cpf") String cpf,
-            @RequestParam("endereco") String endereco) {
-        Aluno aluno = new Aluno();
-        aluno.setMatricula(matricula);
-        aluno.setNome(nome);
-        aluno.setCpf(cpf);
-        aluno.setEndereco(endereco);
-        alunoDAO.save(aluno);
-        // Retorna para o formulário limpando os campos e enviando parâmetro de sucesso para a view
-        return "redirect:/alunos/novo?sucesso";
+            @RequestParam("endereco") String endereco,
+            org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes) {
+        try {
+            Aluno aluno = new Aluno();
+            aluno.setMatricula(matricula);
+            aluno.setNome(nome);
+            aluno.setCpf(cpf);
+            aluno.setEndereco(endereco);
+            alunoDAO.save(aluno);
+            redirectAttributes.addFlashAttribute("sucesso", "Aluno cadastrado com sucesso!");
+            return "redirect:/alunos/novo";
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("erro", "Não foi possível cadastrar: Matrícula ou CPF já existem no sistema.");
+            return "redirect:/alunos/novo";
+        }
     }
 }
