@@ -23,7 +23,7 @@ O **Sistema Biblioteca** é uma aplicação web desenvolvida para automatizar e 
 ---
 
 ## Configuração e Execução (Como rodar o projeto)
-> **Seção em desenvolvimento**
+**Em Run/Debug Configurations, no campo Environment variables digite: DB_PASSWORD=insira aqui a sua senha do MySQL. Clique em Aplicar e OK. Isso foi feito para que nenhuma senha seja exposta.**
 
 
 ---
